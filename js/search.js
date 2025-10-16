@@ -1,5 +1,6 @@
 import { BASE_URL } from './api';
 import axios from 'axios';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
@@ -43,7 +44,10 @@ function searchImage(e) {
   e.preventDefault();
 
   const searchQueryValue = new FormData(e.target).get('searchQuery');
-  if (!searchQueryValue) return;
+  if (!searchQueryValue) {
+    Notify.failure('Введіть пошуковий запит!');
+    return;
+  };
 
   getImages(buildSearchUrl(searchQueryValue));
 }
@@ -65,9 +69,10 @@ async function getImages(url) {
 
 // 7. Функція для рендеру галереї
 function renderGallery(data) {
-  if (!data.length) {
-    // need create notify for error
-  }
+   if (!data.hits || data.hits.length === 0) {
+     Notify.failure('Нічого не знайдено за вашим запитом!');
+     return;
+   }
   const markup = galleryMarkup(data);
   gallery.insertAdjacentHTML('afterbegin', markup);
   modal.refresh();
