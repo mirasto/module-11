@@ -5,6 +5,9 @@ import { defineConfig } from 'vite';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
+  define: {
+    global: 'globalThis',
+  },
   build: {
     cssCodeSplit: true,
     rollupOptions: {
