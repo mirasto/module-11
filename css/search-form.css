@@ -1,0 +1,15 @@
+.search-form {
+  display: flex;
+  padding-top: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+.search-form input {
+  padding: 15px;
+  border-radius: 20px;
+}
+.search-form button {
+  padding: 5px 20px;
+  border-radius: 20px;
+}
