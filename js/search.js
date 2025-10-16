@@ -1,7 +1,6 @@
 import { BASE_URL } from './api';
 import axios from 'axios';
 
-
 const form = document.querySelector('.search-form');
 const gallery = document.querySelector('.gallery');
 
@@ -19,20 +18,29 @@ function submitButton(e) {
 
   const url = `${BASE_URL}&q=${searchQueryValue}&${searchImageType}&${searchOrientation}&${searchSafe}`;
 
-  axios.get(url)
-    .then(response => {
-      const markup = galleryMarkup(response.data);
-      gallery.insertAdjacentHTML('afterbegin', markup);
-    })
+  getImages(url);
 }
 
-gallery.addEventListener('click', (e) => {
-  if (e.target.tagName == 'IMG') {
-    console.log('asdasd')
+async function getImages(url) {
+  try {
+    const response = await axios.get(url);
+    const markup = await galleryMarkup(response.data);
+    gallery.insertAdjacentHTML('afterbegin', markup);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error ${response.status}`)
+    }
+  } catch (error) {
+    console.log(error.message);
+    throw error
   }
-})
+}
 
-
+gallery.addEventListener('click', e => {
+  if (e.target.tagName == 'IMG') {
+    console.log('asdasd');
+  }
+});
 
 function galleryMarkup(data) {
   const images = data.hits;
@@ -50,5 +58,3 @@ function galleryMarkup(data) {
     })
     .join('');
 }
-
-
