@@ -45,9 +45,9 @@ function searchImage(e) {
 
   const searchQueryValue = new FormData(e.target).get('searchQuery');
   if (!searchQueryValue) {
-    Notify.failure('Введіть пошуковий запит!');
+    Notify.failure('Введи пошуковий запит!');
     return;
-  };
+  }
 
   getImages(buildSearchUrl(searchQueryValue));
 }
@@ -70,7 +70,7 @@ async function getImages(url) {
 // 7. Функція для рендеру галереї
 function renderGallery(data) {
    if (!data.hits || data.hits.length === 0) {
-     Notify.failure('Нічого не знайдено за вашим запитом!');
+     Notify.failure('Нічого не знайдено за запитом!');
      return;
    }
   const markup = galleryMarkup(data);
