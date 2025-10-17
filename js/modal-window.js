@@ -4,11 +4,10 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 let modal = null;
 
 export function showModalWindow() {
-
-	if (modal) {
-		 modal.refresh();
-	} else {
-		const modal = new SimpleLightbox('.gallery a', {
+  if (modal) {
+    modal.refresh();
+  } else {
+    const modal = new SimpleLightbox('.gallery a', {
       captions: true,
       overlay: true,
       spinner: true,
@@ -16,7 +15,5 @@ export function showModalWindow() {
       close: true,
     });
     modal.on('show.simplelightbox');
-	}
-
-  
+  }
 }

@@ -9,7 +9,6 @@ const gallery = document.querySelector('.gallery');
 
 form.addEventListener('submit', searchImage);
 
-
 function buildSearchUrl(query) {
   const params = [
     `q=${encodeURIComponent(query)}`,
@@ -21,7 +20,6 @@ function buildSearchUrl(query) {
   ].join('&');
   return `${BASE_URL}&${params}`;
 }
-
 
 function searchImage(e) {
   e.preventDefault();
@@ -35,7 +33,6 @@ function searchImage(e) {
 
   getImages(buildSearchUrl(searchQueryValue));
 }
-
 
 async function getImages(url) {
   try {
@@ -51,12 +48,11 @@ async function getImages(url) {
   }
 }
 
-
 function renderGallery(data, currentURL) {
-   if (!data.hits || data.hits.length === 0) {
-     Notify.failure('Нічого не знайдено за запитом!');
-     return;
-   }
+  if (!data.hits || data.hits.length === 0) {
+    Notify.failure('Нічого не знайдено за запитом!');
+    return;
+  }
   const markup = galleryMarkup(data);
   gallery.insertAdjacentHTML('beforeend', markup);
   showModalWindow();
@@ -67,17 +63,16 @@ function renderGallery(data, currentURL) {
   const loadMoreBtnMarkup = `<button type="button" class="load-more">Load more</button>`;
   gallery.insertAdjacentHTML('afterend', loadMoreBtnMarkup);
 
-  const loadMoreBtn = document.querySelector('.load-more')
+  const loadMoreBtn = document.querySelector('.load-more');
   loadMoreBtn.addEventListener('click', () => {
     try {
       const nextUrl = incrementPageInUrl(currentURL);
-      getImages(nextUrl)
+      getImages(nextUrl);
     } catch (error) {
-      console.log('Помилка при завантаженні сторінки', error)
+      console.log('Помилка при завантаженні сторінки', error);
     }
-   })
+  });
 }
-
 
 function galleryMarkup(data) {
   const images = data.hits;
@@ -97,7 +92,6 @@ function galleryMarkup(data) {
       `;
     })
     .join('');
-  
 }
 
 function incrementPageInUrl(url) {
