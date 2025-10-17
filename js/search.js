@@ -2,8 +2,7 @@ import { BASE_URL } from './api';
 import axios from 'axios';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
+import { showModalWindow } from './modal-window';
 
 // 1. Отримуємо посилання на DOM-елементи
 const form = document.querySelector('.search-form');
@@ -65,7 +64,7 @@ function renderGallery(data, currentURL) {
    }
   const markup = galleryMarkup(data);
   gallery.insertAdjacentHTML('beforeend', markup);
-  modal.refresh();
+  showModalWindow();
 
   const existBtn = document.querySelector('.load-more');
   if (existBtn) existBtn.remove();
