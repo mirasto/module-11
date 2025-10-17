@@ -35,6 +35,8 @@ function buildSearchUrl(query) {
     'image_type=photo',
     'orientation=horizontal',
     'safesearch=true',
+    'per_page=40',
+    'page=1',
   ].join('&');
   return `${BASE_URL}&${params}`;
 }
@@ -61,21 +63,37 @@ async function getImages(url) {
       throw new Error(`HTTP error ${response.status}`);
     }
 
-    renderGallery(response.data);
+    renderGallery(response.data, url);
   } catch (error) {
     console.error(error.message);
   }
 }
 
 // 7. Функція для рендеру галереї
-function renderGallery(data) {
+function renderGallery(data, currentURL) {
    if (!data.hits || data.hits.length === 0) {
      Notify.failure('Нічого не знайдено за запитом!');
      return;
    }
   const markup = galleryMarkup(data);
-  gallery.insertAdjacentHTML('afterbegin', markup);
+  gallery.insertAdjacentHTML('beforeend', markup);
   modal.refresh();
+
+  const existBtn = document.querySelector('.load-more');
+  if (existBtn) existBtn.remove();
+//  pagination btn
+  const loadMoreBtnMarkup = `<button type="button" class="load-more">Load more</button>`;
+  gallery.insertAdjacentHTML('afterend', loadMoreBtnMarkup);
+
+  const loadMoreBtn = document.querySelector('.load-more')
+  loadMoreBtn.addEventListener('click', () => {
+    try {
+      const nextUrl = incrementPageInUrl(currentURL);
+      getImages(nextUrl)
+    } catch (error) {
+      console.log('Помилка при завантаженні сторінки', error)
+    }
+   })
 }
 
 // 8. Функція для створення розмітки галереї
@@ -93,7 +111,16 @@ function galleryMarkup(data) {
           <p class="info-item"><b>Comments:</b> ${comments}</p>
           <p class="info-item"><b>Downloads:</b> ${downloads}</p>
         </div>
-      </div>`;
+      </div>
+      `;
     })
     .join('');
+  
+}
+
+function incrementPageInUrl(url) {
+  const urlObj = new URL(url);
+  const page = Number(urlObj.searchParams.get('page')) || 1;
+  urlObj.searchParams.set('page', String(page + 1));
+  return urlObj.href;
 }

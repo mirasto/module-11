@@ -54,6 +54,20 @@
   font-size: 16px;
 }
 
+.load-more {
+  display: block;
+  margin: 0 auto;
+  padding: 14px 28px;
+  font-size: 25px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #4a90e2;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
 /* Адаптив під мобільні */
 @media (max-width: 600px) {
   .gallery {
