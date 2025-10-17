@@ -10,20 +10,7 @@ const form = document.querySelector('.search-form');
 const gallery = document.querySelector('.gallery');
 
 // 2. Ініціалізуємо SimpleLightbox для галереї
-let modal = new SimpleLightbox('.gallery a', {
-  captions: true,
-  captionsData: 'alt',
-  captionPosition: 'bottom',
-  captionDelay: 0,
-  overlay: true,
-  spinner: true,
-  nav: true,
-  close: true,
-});
-modal.on('show.simplelightbox', function (e) {
-  const imageURL = e.target.dataset.modal;
-  console.log(imageURL);
-});
+
 
 // 3. Додаємо обробник події на форму пошуку
 form.addEventListener('submit', searchImage);
