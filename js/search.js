@@ -4,17 +4,12 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import { showModalWindow } from './modal-window';
 
-// 1. Отримуємо посилання на DOM-елементи
 const form = document.querySelector('.search-form');
 const gallery = document.querySelector('.gallery');
 
-// 2. Ініціалізуємо SimpleLightbox для галереї
-
-
-// 3. Додаємо обробник події на форму пошуку
 form.addEventListener('submit', searchImage);
 
-// 4. Функція для побудови URL для запиту
+
 function buildSearchUrl(query) {
   const params = [
     `q=${encodeURIComponent(query)}`,
@@ -27,7 +22,7 @@ function buildSearchUrl(query) {
   return `${BASE_URL}&${params}`;
 }
 
-// 5. Обробник події submit форми
+
 function searchImage(e) {
   e.preventDefault();
 
@@ -41,7 +36,7 @@ function searchImage(e) {
   getImages(buildSearchUrl(searchQueryValue));
 }
 
-// 6. Асинхронна функція для отримання зображень з API
+
 async function getImages(url) {
   try {
     const response = await axios.get(url);
@@ -56,7 +51,7 @@ async function getImages(url) {
   }
 }
 
-// 7. Функція для рендеру галереї
+
 function renderGallery(data, currentURL) {
    if (!data.hits || data.hits.length === 0) {
      Notify.failure('Нічого не знайдено за запитом!');
@@ -68,7 +63,7 @@ function renderGallery(data, currentURL) {
 
   const existBtn = document.querySelector('.load-more');
   if (existBtn) existBtn.remove();
-//  pagination btn
+
   const loadMoreBtnMarkup = `<button type="button" class="load-more">Load more</button>`;
   gallery.insertAdjacentHTML('afterend', loadMoreBtnMarkup);
 
@@ -83,7 +78,7 @@ function renderGallery(data, currentURL) {
    })
 }
 
-// 8. Функція для створення розмітки галереї
+
 function galleryMarkup(data) {
   const images = data.hits;
   return images
