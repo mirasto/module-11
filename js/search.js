@@ -50,6 +50,7 @@ function searchImage(e) {
     Notify.failure('Введи пошуковий запит!');
     return;
   }
+  gallery.innerHTML = '';
 
   getImages(buildSearchUrl(searchQueryValue));
 }
