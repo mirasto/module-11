@@ -1,28 +1,16 @@
 import { BASE_URL } from './api';
 import axios from 'axios';
 
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
+import { showModalWindow } from './modal-window';
+
+
 
 // 1. Отримуємо посилання на DOM-елементи
 const form = document.querySelector('.search-form');
 const gallery = document.querySelector('.gallery');
 
 // 2. Ініціалізуємо SimpleLightbox для галереї
-let modal = new SimpleLightbox('.gallery a', {
-  captions: true,
-  captionsData: 'alt',
-  captionPosition: 'bottom',
-  captionDelay: 0,
-  overlay: true,
-  spinner: true,
-  nav: true,
-  close: true,
-});
-modal.on('show.simplelightbox', function (e) {
-  const imageURL = e.target.dataset.modal;
-  console.log(imageURL);
-});
+
 
 // 3. Додаємо обробник події на форму пошуку
 form.addEventListener('submit', searchImage);
@@ -70,7 +58,8 @@ function renderGallery(data) {
   }
   const markup = galleryMarkup(data);
   gallery.insertAdjacentHTML('afterbegin', markup);
-  modal.refresh();
+  showModalWindow();
+ 
 }
 
 // 8. Функція для створення розмітки галереї
