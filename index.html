@@ -3,15 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homework 10</title>
+    <title>Homework 11</title>
     <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
-    <select class="breed-select" id="#selectElement"></select>
-    <p class="loader hidden"></p>
-    <p class="error hidden">Oops! Something went wrong! Try reloading the page!</p>
-    <div class="cat-info hidden"></div>
+    <form class="search-form" id="search-form">
+      <input type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." />
+      <button type="submit">Search</button>
+      
+    </form>
+    <div class="gallery">
+      <!-- Картки зображень -->
+    </div>
 
-    <script src="js/index.js" type="module"></script>
+    
+    <script src="js/main.js" type="module"></script>
   </body>
 </html>
